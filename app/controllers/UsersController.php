@@ -15,6 +15,8 @@ class UsersController extends Controller
 
     public function getUsers()
     {
+        $response = new Response();
+
         try {
             if ($this->modelsManager === null) {
                 throw new \Exception('modelsManager is null');
@@ -36,12 +38,13 @@ class UsersController extends Controller
                 ];
             }
 
-            echo json_encode($data);
+            $response->setStatusCode(200);
+            $response->setJsonContent($data);
+            return $response;
         } catch (Exception $e) {
-            $response = new Response();
             $response->setStatusCode(500);
             $response->setJsonContent(["error" => "It seems that there is an error in the server"]);
-            $response->send();
+            return $response;
         }
     }
 }

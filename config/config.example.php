@@ -15,5 +15,10 @@ return new \Phalcon\Config(
             'modelsDir' => "app/models/",
             'baseUri' => "/",
         ],
+        'jwt' => [
+            'issuer' => '',
+            'expiredAt' => 15, // In minute
+            'secretKey' => '',
+        ],
     ]
 );

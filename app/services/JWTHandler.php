@@ -4,6 +4,7 @@ namespace App\Services;
 
 use DateTimeImmutable;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class JWTHandler
 {
@@ -31,5 +32,11 @@ class JWTHandler
         ];
         $token = JWT::encode($payload, $this->secretKey, 'HS256');
         return $token;
+    }
+
+    public function decodeToken(string $token)
+    {
+        $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
+        return (array) $decoded;
     }
 }
