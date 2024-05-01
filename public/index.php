@@ -3,6 +3,7 @@
 // Load configs
 
 use App\Middlewares\AuthMiddleware;
+use App\Middlewares\RoleMiddleware;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
@@ -24,7 +25,8 @@ $eventsManager->attach('micro', new AuthMiddleware($excludeAuthURIs));
 $app->before(new AuthMiddleware($excludeAuthURIs));
 
 // Setup Role Middleware
-
+$eventsManager->attach('micro', new RoleMiddleware('adm', ['/api/users']));
+$app->before(new RoleMiddleware('adm', ['/api/users']));
 
 $app->setEventsManager($eventsManager);
 
