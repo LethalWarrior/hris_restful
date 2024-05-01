@@ -1,6 +1,7 @@
 {
     "require-dev": {
-        "phalcon/ide-stubs": "^4.1"
+        "phalcon/ide-stubs": "^4.1",
+        "phalcon/devtools": "^3.4"
     },
     "require": {
         "firebase/php-jwt": "^6.4"
