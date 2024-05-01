@@ -4,12 +4,10 @@
 
 use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
-use Phalcon\Di\FactoryDefault;
-use App\Controllers\ErrorController;
-use Phalcon\Db\Adapter\Pdo\Postgresql;
 
 // Autoload
 require __DIR__ . '/../config/loader.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 // Initialize DI Container
 $di = require __DIR__ . '/../config/di.php';
@@ -18,6 +16,9 @@ $di = require __DIR__ . '/../config/di.php';
 $app = new Micro($di);
 
 // Include routes
+$authRoutes = include __DIR__ . '/../app/routes/authRoutes.php';
+$app->mount($authRoutes);
+
 $userRoutes = include __DIR__ . '/../app/routes/userRoutes.php';
 $app->mount($userRoutes);
 
