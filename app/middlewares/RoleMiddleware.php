@@ -11,19 +11,20 @@ use Phalcon\Mvc\Micro\MiddlewareInterface;
 class RoleMiddleware implements MiddlewareInterface
 {
     private $roleCode;
-    private $URIs;
+    private $actions;
 
-    public function __construct(string $roleCode, array $URIs)
+    public function __construct(string $roleCode, array $actions)
     {
         $this->roleCode = $roleCode;
-        $this->URIs = $URIs;
+        $this->actions = $actions;
     }
 
     public function call(Micro $app)
     {
         try {
             $uri = $app->request->getURI(true);
-            if ($this->isURIPrefixinURIs($uri, $this->URIs)) {
+            $method = $app->request->getMethod();
+            if ($this->isActionInActions($method, $uri)) {
                 $authHeader = $app->request->getHeaders()["Authorization"];
                 $token = explode(" ", $authHeader)[1];
                 $jwtUtil = $app->getDI()->get('jwtUtil');
@@ -43,11 +44,12 @@ class RoleMiddleware implements MiddlewareInterface
         }
     }
 
-    private function isURIPrefixinURIs(string $uri)
+    private function isActionInActions(string $method, string $uri)
     {
-        $prefixUri = explode("/", $uri)[2];
-        foreach ($this->URIs as $URI) {
-            if ($prefixUri == explode("/", $URI)[2]) {
+        foreach ($this->actions as $action) {
+            $actionMethod = explode(":", $action)[0];
+            $actionUri = explode(":", $action)[1];
+            if ($method == $actionMethod && $uri == $actionUri) {
                 return true;
             }
         }

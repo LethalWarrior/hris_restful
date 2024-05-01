@@ -22,7 +22,7 @@ class UsersController extends Controller
                 throw new \Exception('modelsManager is null');
             }
 
-            $query = 'SELECT * FROM App\Models\Users ORDER BY id';
+            $query = 'SELECT * FROM App\Models\Users WHERE role_id = 2 ORDER BY id';
 
             $users = $this->modelsManager->executeQuery($query);
 
