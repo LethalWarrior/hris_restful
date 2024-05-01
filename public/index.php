@@ -18,8 +18,13 @@ $di = require __DIR__ . '/../config/di.php';
 $eventsManager = new EventsManager();
 $app = new Micro($di);
 
-$eventsManager->attach('micro', new AuthMiddleware());
-$app->before(new AuthMiddleware());
+// Setup Auth Middleware
+$excludeAuthURIs = ['/api/login'];
+$eventsManager->attach('micro', new AuthMiddleware($excludeAuthURIs));
+$app->before(new AuthMiddleware($excludeAuthURIs));
+
+// Setup Role Middleware
+
 
 $app->setEventsManager($eventsManager);
 
