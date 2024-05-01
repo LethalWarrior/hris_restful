@@ -1,6 +1,6 @@
 <?php
 
-use App\Services\JWTHandler;
+use App\Utils\JWTUtil;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Db\Adapter\Pdo\Postgresql;
 use Phalcon\Mvc\Model\Manager;
@@ -34,9 +34,9 @@ $di->set(
 );
 
 $di->set(
-    'jwtHandler',
+    'jwtUtil',
     function () use ($config) {
-        return new JWTHandler(
+        return new JWTUtil(
             [
                 "secretKey" => $config->jwt->secretKey,
                 "issuer" => $config->jwt->issuer,

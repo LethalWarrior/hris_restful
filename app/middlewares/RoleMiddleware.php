@@ -26,9 +26,9 @@ class RoleMiddleware implements MiddlewareInterface
             if ($this->isURIPrefixinURIs($uri, $this->URIs)) {
                 $authHeader = $app->request->getHeaders()["Authorization"];
                 $token = explode(" ", $authHeader)[1];
-                $jwtHandler = $app->getDI()->get('jwtHandler');
+                $jwtUtil = $app->getDI()->get('jwtUtil');
 
-                $claims = $jwtHandler->decodeToken($token);
+                $claims = $jwtUtil->decodeToken($token);
                 if (!$this->isVerified($claims["id"])) {
                     throw new Http403Exception();
                 }

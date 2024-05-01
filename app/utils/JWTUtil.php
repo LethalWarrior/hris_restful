@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Services;
+namespace App\Utils;
 
-use App\Controllers\Exceptions\Http401Exception;
-use DateTimeImmutable;
-use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use DateTimeImmutable;
 use UnexpectedValueException;
+use Firebase\JWT\ExpiredException;
+use App\Controllers\Exceptions\Http401Exception;
 
-class JWTHandler
+class JWTUtil
 {
     protected $secretKey;
     protected $issuer;

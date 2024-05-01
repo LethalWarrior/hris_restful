@@ -28,7 +28,7 @@ class AuthController extends Controller
         ]);
         if ($user) {
             if ($this->security->checkHash($password, $user->password)) {
-                $token = $this->getDI()->get('jwtHandler')->issueToken($user->id, $user->getRole()->getRoleCode());
+                $token = $this->getDI()->get('jwtUtil')->issueToken($user->id, $user->getRole()->getRoleCode());
                 $response->setStatusCode(200);
                 $response->setJsonContent(["token" => $token]);
                 return $response;

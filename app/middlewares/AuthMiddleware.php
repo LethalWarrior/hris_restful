@@ -24,8 +24,8 @@ class AuthMiddleware implements MiddlewareInterface
                 $authHeader = $app->request->getHeaders()["Authorization"];
                 if ($authHeader && strlen($authHeader) > 0) {
                     $token = explode(" ", $authHeader)[1];
-                    $jwtHandler = $app->getDI()->get('jwtHandler');
-                    $jwtHandler->decodeToken($token);
+                    $jwtUtil = $app->getDI()->get('jwtUtil');
+                    $jwtUtil->decodeToken($token);
                 } else {
                     throw new Http401Exception();
                 }
