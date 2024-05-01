@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Models;
 
-class Users extends \Phalcon\Mvc\Model
+class Roles extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -15,19 +14,7 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $fullname;
-
-    /**
-     *
-     * @var string
-     */
-    protected $username;
-
-    /**
-     *
-     * @var string
-     */
-    protected $password;
+    protected $role_code;
 
     /**
      *
@@ -48,12 +35,6 @@ class Users extends \Phalcon\Mvc\Model
     protected $deleted_at;
 
     /**
-     *
-     * @var integer
-     */
-    protected $role_id;
-
-    /**
      * Method to set the value of field id
      *
      * @param integer $id
@@ -67,40 +48,14 @@ class Users extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field fullname
+     * Method to set the value of field role_code
      *
-     * @param string $fullname
+     * @param string $role_code
      * @return $this
      */
-    public function setFullname($fullname)
+    public function setRoleCode($role_code)
     {
-        $this->fullname = $fullname;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field username
-     *
-     * @param string $username
-     * @return $this
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field password
-     *
-     * @param string $password
-     * @return $this
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
+        $this->role_code = $role_code;
 
         return $this;
     }
@@ -145,19 +100,6 @@ class Users extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field role_id
-     *
-     * @param integer $role_id
-     * @return $this
-     */
-    public function setRoleId($role_id)
-    {
-        $this->role_id = $role_id;
-
-        return $this;
-    }
-
-    /**
      * Returns the value of field id
      *
      * @return integer
@@ -168,33 +110,13 @@ class Users extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field fullname
+     * Returns the value of field role_code
      *
      * @return string
      */
-    public function getFullname()
+    public function getRoleCode()
     {
-        return $this->fullname;
-    }
-
-    /**
-     * Returns the value of field username
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Returns the value of field password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
+        return $this->role_code;
     }
 
     /**
@@ -228,31 +150,12 @@ class Users extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field role_id
-     *
-     * @return integer
-     */
-    public function getRoleId()
-    {
-        return $this->role_id;
-    }
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
         $this->setSchema("public");
-        $this->setSource("users");
-
-        $this->belongsTo(
-            'role_id',
-            'App\Models\Roles',
-            'id',
-            [
-                'alias' => 'Role'
-            ]
-        );
+        $this->setSource("roles");
     }
 
     /**
@@ -262,14 +165,14 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'users';
+        return 'roles';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users[]|Users|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Roles[]|Roles|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null)
     {
@@ -280,10 +183,11 @@ class Users extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users|\Phalcon\Mvc\Model\ResultInterface
+     * @return Roles|\Phalcon\Mvc\Model\ResultInterface
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
     }
+
 }
