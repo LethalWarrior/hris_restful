@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Controllers\Exceptions\Http401Exception;
 use DateTimeImmutable;
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use UnexpectedValueException;
 
 class JWTHandler
 {
@@ -36,7 +39,11 @@ class JWTHandler
 
     public function decodeToken(string $token)
     {
-        $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
-        return (array) $decoded;
+        try {
+            $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
+            return (array) $decoded;
+        } catch (ExpiredException | UnexpectedValueException $e) {
+            throw new Http401Exception("Invalid JWT.");
+        }
     }
 }
