@@ -7,5 +7,6 @@ $userRoutes = new Collection();
 $userRoutes->setHandler(new UsersController());
 $userRoutes->setPrefix('/api/users');
 $userRoutes->get('/', 'getUsers');
+$userRoutes->get('/{userId}', 'getUser');
 
 return $userRoutes;
